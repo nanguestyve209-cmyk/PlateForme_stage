@@ -1,0 +1,18 @@
+# Dépendances
+vendor/
+jquery-ui-1.14.2.custom/
+
+# Fichiers uploadés par les utilisateurs
+uploads/
+
+# Fichiers sensibles (identifiants BD)
+connect.php
+config.php
+
+# Fichiers système / IDE
+.vscode/
+Thumbs.db
+.DS_Store
+
+# Logs éventuels
+*.log

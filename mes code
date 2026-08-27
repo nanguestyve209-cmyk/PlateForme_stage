@@ -1,0 +1,544 @@
+pour la gestion des etudiant
+
+<?php
+include 'connect.php';
+?>
+<!-- fonction de modification -->
+<?php
+if (isset($_POST['modifier'])) {
+    $id_etudiant = $_GET['id_etudiant'];
+    $nom = $_GET['nom'];
+    $email = $_GET['email'];
+    $sql = "UPDATE etudiant SET nom = '$nom', email ='$email' WHERE id_etudiant = '$id_etudiant'  ";
+    $result = mysqli_query($con, $sql);
+    if ($result) {
+        header("Location: gestion_etudiant.php");
+        exit();
+    } else {
+        die(mysqli_error($con));
+    }
+}
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="vendor/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/sidebar_admin.css">
+    <link rel="stylesheet" href="css/datatable.min.css">
+    <link rel="stylesheet" href="vendor/fontawesome/css/all.min.css">
+</head>
+
+<body>
+
+    <main class="row">
+        <div class="col-lg-2 col-sm-3 col-md-9 ">
+            <?php include 'include/sidebar_admin.php'; ?></div>
+
+        <div class="col-lg-9 col-sm-9 col-md-9 ">
+            <h1 class="text-center text-primary h4">Étudiant/Jeune diplômé inscrit</h1>
+            <table id="table" class="table table-stripped table-hover">
+                <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>Nom</td>
+                        <td>Email</td>
+                        <td>date d'inscription</td>
+                        <td>Actions</td>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <?php
+
+                    $sql = "SELECT * FROM etudiant";
+
+                    $result = mysqli_query($con, $sql);
+                    $i = 1;
+                    while ($row = mysqli_fetch_assoc($result)) {
+                    ?>
+
+                        <tr>
+                            <td>
+                                <?php echo $i; ?>
+                            </td>
+                            <td>
+                                <?php echo htmlspecialchars($row['nom_complet']); ?>
+                            </td>
+
+                            <td>
+                                <?php echo htmlspecialchars($row['email']); ?>
+                            </td>
+
+                            <td>
+                                <?php echo htmlspecialchars($row['date_inscription'] ?? ''); ?>
+                            </td>
+
+                            <td>
+                                <a href="" class="btn btn-danger mx-1" data>
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </a>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                    <?php
+                        $i++;
+                    }
+
+                    ?>
+
+                </tbody>
+
+            </table>
+        </div>
+        <!-- Button trigger modal -->
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modifier</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="" method="POST" class="p-3">
+
+                            <label for="nom_cplt" class="form-label">Nom complet</label><br />
+                            <input required type="text" name="nom" class="form-control" /><br />
+                            <label for="email" class="form-label">Email</label><br />
+                            <input
+                                type="text"
+                                id="email"
+                                class="form-control"
+                                placeholder="jeandupont@gmail.com"
+                                name="email" required /><br />
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary" name="modifier">Modifier</button>
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="js/datatable.min.js"></script>
+    <script src="vendor/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#table").DataTable();
+        });
+    </script>
+</body>
+
+</html>
+
+
+<!-- page inscription -->
+<?php 
+include 'connect.php';
+if(isset($_POST['inscrire'])){
+  $nom = $_POST['nom'];
+  $email = $_POST['email'];
+  $psw = $_POST['psw'];
+  $type_entreprise = $_POST['type_entreprise'];
+  $type_etudiant = $_POST['type_etudiant'];
+$sql = "insert into etudiant (nom_complet,email,mot_passe) values ('$nom','$email','$psw')";
+$result = mysqli_query($con,$sql);
+if($result){
+  echo "inscripion reussie";
+}else{
+  die(mysqli_error($con));
+}
+if($type_entreprise){
+  header("Location : dashboard_entreprise.php ");
+}
+}
+?>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>page d'inscription</title>
+    <link rel="stylesheet" href="vendor/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="vendor/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="css/inscription.css" />
+  </head>
+  <body>
+    <main class="p-5">
+     
+      <h3 class="text-center">Créer un compte</h3>
+      <span class="text-center">Rejoignez notre plateforme</span>
+      <section>
+        <form action="" method="POST" class="p-3">
+          <p> je suis..</p>
+      <div class="form-check form-check-inline">
+        <input type="radio" class="form-check-input" name="type_compte" value="etudiant" checked> 
+        <label for="type_etudiant" class="form-check-label ">Étudiant</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input type="radio" class="form-check-input" name="type_compte" value="entreprise"> 
+        <label for="type_enreprise" class="form-check-label ">Entreprise</label>
+      </div><br>
+          <label for="nom_cplt" class="form-label">Nom complet</label><br />
+          <input required type="text" name="nom" class="form-control"/><br />
+          <label for="email" class="form-label">Email</label><br />
+          <input
+            type="text"
+            id="email"
+            class="form-control"
+            placeholder="jeandupont@gmail.com"
+            name="email" required
+          /><br />
+          <label for="psw" class="form-label">Mot de passe</label>
+          <input type="password" id="psw" class="form-control" name="psw" required/>
+          <label for="cfr_psw" class="form-label"
+            >Confirmer le mot de passe</label
+          >
+          <input type="text" id="cfr_psw" class="form-control" required />
+          <div class="d-flex">
+            <input type="checkbox"/>
+            <p>
+              J'accepte les
+              <span class="text-primary">conditions d'utilisations</span>
+            </p>
+          </div>
+         <div class="d-flex justify-content-center align-item-center"><button class="btn btn-primary" name="inscrire">S'inscrire</button></div> 
+          <div class="d-flex justify-content-center align-item-center"><p>Deje un compte ? <span class="text-primary"><a href="#" class="">Se connecter</a></span></p></div>
+        </form>
+      </section>
+    </main>
+    <script src="./vendor/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
+<!--     page dacueil -->
+<?php
+include 'connect.php';
+?>
+<!-- fonction de modification -->
+<?php
+if (isset($_POST['modifier'])) {
+    $id_etudiant = $_POST['id_etudiant'];
+    $nom = $_POST['nom'];
+    $email = $_POST['email'];
+    $sql = "UPDATE etudiant SET nom_complet = '$nom', email = '$email' WHERE id_etudiant = '$id_etudiant'";
+    $result = mysqli_query($con, $sql);
+    if ($result) {
+        header("Location: gestion_etudiant.php");
+        exit();
+    } else {
+        die(mysqli_error($con));
+    }
+}
+?>
+<!-- fontion de suppression -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="vendor/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/sidebar_admin.css">
+    <link rel="stylesheet" href="css/datatable.min.css">
+    <link rel="stylesheet" href="vendor/fontawesome/css/all.min.css">
+</head>
+
+<body class="">
+
+    <main class="row ">
+        <div class=" col-md-2">
+            <?php include 'include/sidebar_admin.php'; ?></div>
+
+        <div class=" col-md-10">
+            <h1 class="text-center text-primary h4">Étudiant/Jeune diplômé inscrit</h1>
+            <table id="table" class="table table-stripped table-hover table-responsive">
+                <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>Nom</td>
+                        <td>Email</td>
+                        <td>date d'inscription</td>
+                        <td>Actions</td>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <?php
+
+                    $sql = "SELECT * FROM etudiant";
+
+                    $result = mysqli_query($con, $sql);
+                    $i = 1;
+                    while ($row = mysqli_fetch_assoc($result)) {
+                    ?>
+
+                        <tr>
+                            <td>
+                                <?php echo $i; ?>
+                            </td>
+                            <td>
+                                <?php echo htmlspecialchars($row['nom_complet']); ?>
+                            </td>
+
+                            <td>
+                                <?php echo htmlspecialchars($row['email']); ?>
+                            </td>
+
+                            <td>
+                                <?php echo htmlspecialchars($row['date_inscription'] ?? ''); ?>
+                            </td>
+
+                            <td class="d-flex flex-wrap gap-1">
+                                <a href="supprimer_etudiant.php?id_etudiant=<?php echo $row['id_etudiant']; ?>"
+                                   class="btn btn-danger mx-1"
+                                   onclick="return confirm('Voulez-vous vraiment supprimer cet étudiant ?');">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </a>
+                                <button type="button" class="btn btn-primary btn-modifier"
+                                    data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                    data-id="<?php echo $row['id_etudiant']; ?>"
+                                    data-nom="<?php echo htmlspecialchars($row['nom_complet']); ?>"
+                                    data-email="<?php echo htmlspecialchars($row['email']); ?>">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                    <?php
+                        $i++;
+                    }
+
+                    ?>
+
+                </tbody>
+
+            </table>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modifier</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="" method="POST" class="p-3">
+                            <input type="hidden" name="id_etudiant" id="modal_id_etudiant">
+
+                            <label for="nom_cplt" class="form-label">Nom complet</label><br />
+                            <input required type="text" name="nom" id="modal_nom" class="form-control" /><br />
+                            <label for="email" class="form-label">Email</label><br />
+                            <input
+                                required type="text"
+                                id="modal_email"
+                                class="form-control"
+                                placeholder="jeandupont@gmail.com"
+                                name="email" /><br />
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary" name="modifier">Modifier</button>
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="js/datatable.min.js"></script>
+    <script src="vendor/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#table").DataTable();
+        });
+    </script>
+</body>
+
+</html>
+<!-- page dacceul -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page D'acceuil</title>
+    <link rel="stylesheet" href="./vendor/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./vendor/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body class="container-fluid">
+    <!-- Barre de navigation -->
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand rounded-circle" href=""
+          ><img src="/img/logo.png" alt="" class="logo"
+        /></a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mynavbar"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mynavbar">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="">Acceuil</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="">Offres</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="">Entreprises</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="">À propos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="">Contact</a>
+            </li>
+          </ul>
+          <form>
+            <button class="btn btn-primary" type="button">Se connecter</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <section class="row py-2 bg-primary bg-opacity-10">
+      <div class="col-md-12 col-sm-12 col-lg-6 p-2">
+        <div class="card p-5">
+          <div class="card-body">
+            <h1>
+              Trouvez le stage <br />
+              qui propulse votre <br />
+              avenir
+            </h1>
+            <span class="">
+              Des centaines d'opportunités de stage <br />
+              vous attendent
+            </span>
+            <div class="input-group my-4">
+              <input style="width: 55%; border: 1px solid rgba(0, 0, 0, 0.205);"
+                type="search"
+                placeholder="Rechercher une offre, une entreprise"
+              / >
+              <button class="btn bg-primary btn-ligth ">Rechercher</button>
+            </div>
+            <div class="row">
+              <div class="col">
+                <h3>
+                  500+ <br />
+                  <spn class="h6">Offres de stage</spn>
+                </h3>
+              </div>
+              <div class="col">
+                <h3>
+                  200+ <br />
+                  <spn class="h6">Entreprises</spn>
+                </h3>
+              </div>
+              <div class="col">
+                <h3>
+                  1000+ <br />
+                  <spn class="h6">Étudiants inscrit</spn>
+                </h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-12 col-sm-12 img">
+        <div class="card">
+          <div class="card-body">
+            <img src="./img/images (1).jpg" alt="" />
+          </div>
+        </div>
+      </div>
+    </section>
+    <script src="./vendor/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
+/* pour la page inscription de lentreprise*/
+<?php 
+include 'connect.php';
+if(isset($_POST['inscrire'])){
+  $nom_entreprise =$_POST['nom_entreprise'];
+  $email =$_POST['email'];
+  $secteur_activite =$_POST['secteur_activite'];
+  /*    pour definir le type de fichier */
+  $logo =$_FILES['logo'];
+  $tmp = $logo['tmp_name'];
+  $tmp = $logo['tmp_name'];
+  $nom_logo = $logo['name'];
+  
+  move_uploaded_file($tmp, 'uploads/' . $nom_logo);
+  $sql = "INSERT INTO entreprise(nom_entreprise,email,secteur_activite,logo) VALUE('$nom_entreprise','$email','$secteur_activite','$logo')";
+  $result = mysqli_query($con,$sql);
+if($result){
+  echo 'connection';
+}else{
+   die(mysqli_error($con));
+}
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>formulaire d'inscription entreprise</title>
+    <link rel="stylesheet" href="vendor/css/bootstrap.min.css">
+    <link rel="stylesheet" href="vendor/fontawesome/css/all.min.css">
+</head>
+<body class="container d-flex justify-content-center align-item-center">
+     <form action="" method="POST" class="p-2 bg-secondary bg-opacity-10" enctype="multipart/form-data">
+        <label for="nom" class="form-label">Nom Entreprise</label><br />
+        <input required type="text" name="nom_entreprise" class="form-control" /><br />
+        <label for="email" class="form-label">Email</label><br />
+        <input
+          type="email"
+          id="email"
+          class="form-control"
+          placeholder="jeandupont@gmail.com"
+          name="email" required /><br />
+        <label for="secteur_activie" class="form-label">Secteur D'activité</label>
+        <input type="text" id="secteur_activite" class="form-control" name="secteur_activite" required />
+        <div class="my-3 d-grid">
+        <label for="logo" class="form-label">Logo</label>
+        <input type="file" name="logo"></div>
+        <div class="d-flex">
+          <input type="checkbox" />
+          <p>
+            J'accepte les
+            <span class="text-primary">conditions d'utilisations</span>
+          </p>
+        </div>
+        <div class="d-flex justify-content-center align-item-center">
+          <button class="btn btn-primary" name="inscrire">S'inscrire</button>
+        </div>
+        <div class="d-flex justify-content-center align-item-center">
+          <p>Déjà un compte ? <span class="text-primary"><a href="#">Se connecter</a></span></p>
+        </div>
+      </form>
+    <script src="vendor/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

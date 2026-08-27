@@ -1,0 +1,16 @@
+/* --- Ajouts à fusionner dans ./css/style.css --- */
+
+.hero {
+  border-radius: 0 0 2rem 2rem;
+}
+#mynavbar {
+  margin-left: 30%;
+}
+
+/* Focus clavier visible, important pour l'accessibilité */
+.nav-link:focus-visible,
+.btn:focus-visible,
+.form-control:focus-visible {
+  outline: 3px solid #0d6efd;
+  outline-offset: 2px;
+}

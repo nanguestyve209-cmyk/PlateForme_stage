@@ -1,0 +1,18 @@
+.sidebar,
+.sidebar_etudiant {
+  background-color: #0f1c33;
+  height: 100vh;
+}
+i {
+  color: white;
+}
+.sidebar_etudiant i {
+  color: blue;
+}
+.sidebar_etudiant {
+  height: auto;
+}
+.card {
+  width: 75%;
+  border-radius: 70px;
+}
