@@ -1,5 +1,9 @@
 <?php
-include 'connect.php'
+include 'connect.php';
+/*  fonction de modification */
+if (isset($_POST['modifier'])) {
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -21,38 +25,41 @@ include 'connect.php'
             <?php include 'include/sidebar_admin.php' ?>
         </div>
         <div class="col-10">
-            <table class="table table-stripped table-responsive table-hover">
-                <thead>
-                    <tr>
-                        <td>#</td>
-                        <td>Nom de l'entreprise</td>
-                        <td>Email</td>
-                        <td>Secteur d'activité</td>
-                        <td>Logo</td>
-                        <td>Action</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $sql = "SELECT * FROM entreprise";
-                    $result = mysqli_query($con, $sql);
-                    $i = 1;
-                    while ($row = mysqli_fetch_assoc($result)) { ?>
+            <div class="table-responsive">
+                <table class="table table-stripped  table-hover">
+                    <thead>
                         <tr>
-                            <td><?php echo $i ?></td>
-                            <td><?php echo htmlspecialchars($row['nom_entreprise']) ?></td>
-                            <td><?php echo htmlspecialchars($row['email']) ?></td>
-                            <td><?php echo htmlspecialchars($row['secteur_activite']) ?></td>
-                            <td><img class="rounded-circle" src="<?php echo $row['logo']; ?>" width="60" height="60"></td>
-                            <td><button class="btn btn-primary">Modifier</button><button class="btn btn-danger">Supprimer</button></td>
+                            <td>#</td>
+                            <td>Nom de l'entreprise</td>
+                            <td>Email</td>
+                            <td>Secteur d'activité</td>
+                            <td>Logo</td>
+                            <td>Action</td>
                         </tr>
-                    <?php
-                        $i++;
-                    } ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $sql = "SELECT * FROM entreprise";
+                        $result = mysqli_query($con, $sql);
+                        $i = 1;
+                        while ($row = mysqli_fetch_assoc($result)) { ?>
+                            <tr>
+                                <td><?php echo $i ?></td>
+                                <td><?php echo htmlspecialchars($row['nom_entreprise']) ?></td>
+                                <td><?php echo htmlspecialchars($row['email']) ?></td>
+                                <td><?php echo htmlspecialchars($row['secteur_activite']) ?></td>
+                                <td><img class="rounded-circle" src="<?php echo $row['logo']; ?>" width="60" height="60"></td>
+                                <td><a href="modifier?id_entreprise=" class="btn btn-primary">Modifier</a><button class="btn btn-danger">Supprimer</button></td>
+                            </tr>
+                        <?php
+                            $i++;
+                        } ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </main>
+
     <script src=" vendor/js/bootstrap.bundle.min.js"></script>
 </body>
 

@@ -1,14 +1,21 @@
 <?php
 include 'connect.php';
+
 if (isset($_POST['inscrire'])) {
+
   $nom = $_POST['nom'];
   $email = $_POST['email'];
   $psw = $_POST['psw'];
-  $type_compte = $_POST['type_compte']; // 'etudiant' ou 'entreprise'  
-  $sql = "INSERT INTO etudiant (nom_complet, email, mot_passe) VALUES ('$nom','$email','$psw')";
+  $type_compte = $_POST['type_compte'];
+
+  $sql = "INSERT INTO etudiant (nom_complet, email, mot_passe)
+            VALUES ('$nom', '$email', '$psw')";
+
   $result = mysqli_query($con, $sql);
+
   if ($result) {
-    echo ' inscription reussi';
+    header("Location: dashboard_etudiant.php");
+    exit();
   } else {
     die(mysqli_error($con));
   }
@@ -37,7 +44,7 @@ if (isset($_POST['inscrire'])) {
     <section class="row d-flex ">
 
 
-      <form action="" method="POST" class="col-lg-6 col-md-12">
+      <form action="inscription.php" method="POST" class="col-lg-6 col-md-12">
         <h3 class="text-center">Créer un compte</h3>
         <span class="text-center">Rejoignez notre plateforme</span>
         <!-- Choix du type de compte -->
@@ -48,7 +55,7 @@ if (isset($_POST['inscrire'])) {
             <label class="form-check-label" for="type_etudiant">Étudiant</label>
           </div>
           <div class="form-check form-check-inline">
-            <a href="inscriptionEntreprise.php"><input class="form-check-input" type="radio" name="type_compte" id="type_entreprise" value="entreprise"></a>
+            <input class="form-check-input" type="radio" name="type_compte" id="type_entreprise" value="entreprise">
             <label class="form-check-label" for="type_entreprise">Entreprise</label>
           </div>
         </div>
@@ -89,6 +96,22 @@ if (isset($_POST['inscrire'])) {
 
   </main>
   <script src="./vendor/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const etudiant = document.getElementById("type_etudiant");
+    const entreprise = document.getElementById("type_entreprise");
+
+    etudiant.addEventListener("change", function() {
+      if (this.checked) {
+        window.location.href = "inscription.php";
+      }
+    });
+
+    entreprise.addEventListener("change", function() {
+      if (this.checked) {
+        window.location.href = "inscriptionEntreprise.php";
+      }
+    });
+  </script>
 </body>
 
 </html>

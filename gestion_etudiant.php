@@ -45,67 +45,74 @@ if (isset($_POST['modifier'])) {
 </head>
 
 <body class="">
+
     <main class="row ">
-        <div class=" col-md-2">
+        <div class="d-md-none p-2">
+            <button class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMobile"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div class=" col-12 col-md-2 d-none d-md-block">
             <?php include 'include/sidebar_admin.php'; ?></div>
         <div class=" col-md-10">
+
             <h1 class="text-center text-primary h4">Étudiant/Jeune diplômé inscrit</h1>
-            <table id="table" class="table table-stripped table-hover table-responsive">
-                <thead>
-                    <tr>
-                        <td>#</td>
-                        <td>Nom</td>
-                        <td>Email</td>
-                        <td>date d'inscription</td>
-                        <td>Actions</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $sql = "SELECT * FROM etudiant";
-                    $result = mysqli_query($con, $sql);
-                    $i = 1;
-                    while ($row = mysqli_fetch_assoc($result)) {
-                    ?>
+            <div class="table-responsive">
+                <table id="table" class="table table-stripped table-hover ">
+                    <thead>
                         <tr>
-                            <td>
-                                <?php echo $i; ?>
-                            </td>
-                            <td>
-                                <?php echo htmlspecialchars($row['nom_complet']); ?>
-                            </td>
-
-                            <td>
-                                <?php echo htmlspecialchars($row['email']); ?>
-                            </td>
-                            <td>
-                                <?php echo htmlspecialchars($row['date_inscription'] ?? ''); ?>
-                            </td>
-                            <td class="d-flex flex-wrap gap-1">
-                                <a href="?supprimer=1&id_etudiant=<?php echo $row['id_etudiant']; ?>"
-                                    class="btn btn-danger mx-1"
-                                    onclick="return confirm('Voulez-vous vraiment supprimer cet étudiant ?');">
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </a>
-                                <button type="button" class="btn btn-primary btn-modifier"
-                                    data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                                    data-id="<?php echo $row['id_etudiant']; ?>"
-                                    data-nom="<?php echo htmlspecialchars($row['nom_complet']); ?>"
-                                    data-email="<?php echo htmlspecialchars($row['email']); ?>">
-                                    <i class="fa-regular fa-pen-to-square"></i>
-                                </button>
-                            </td>
+                            <td>#</td>
+                            <td>Nom</td>
+                            <td>Email</td>
+                            <td>date d'inscription</td>
+                            <td>Actions</td>
                         </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $sql = "SELECT * FROM etudiant";
+                        $result = mysqli_query($con, $sql);
+                        $i = 1;
+                        while ($row = mysqli_fetch_assoc($result)) {
+                        ?>
+                            <tr>
+                                <td>
+                                    <?php echo $i; ?>
+                                </td>
+                                <td>
+                                    <?php echo htmlspecialchars($row['nom_complet']); ?>
+                                </td>
 
-                    <?php
-                        $i++;
-                    }
+                                <td>
+                                    <?php echo htmlspecialchars($row['email']); ?>
+                                </td>
+                                <td>
+                                    <?php echo htmlspecialchars($row['date_inscription'] ?? ''); ?>
+                                </td>
+                                <td class="d-flex flex-wrap gap-1">
+                                    <a href="?supprimer=1&id_etudiant=<?php echo $row['id_etudiant']; ?>"
+                                        class="btn btn-danger mx-1"
+                                        onclick="return confirm('Voulez-vous vraiment supprimer cet étudiant ?');">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </a>
+                                    <button type="button" class="btn btn-primary btn-modifier"
+                                        data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                        data-id="<?php echo $row['id_etudiant']; ?>"
+                                        data-nom="<?php echo htmlspecialchars($row['nom_complet']); ?>"
+                                        data-email="<?php echo htmlspecialchars($row['email']); ?>">
+                                        <i class="fa-regular fa-pen-to-square"></i>
+                                    </button>
+                                </td>
+                            </tr>
 
-                    ?>
+                        <?php
+                            $i++;
+                        }
 
-                </tbody>
+                        ?>
 
-            </table>
+                    </tbody>
+
+                </table>
+            </div>
         </div>
         <!-- Modal -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -139,8 +146,19 @@ if (isset($_POST['modifier'])) {
             </div>
         </div>
     </main>
-    <script src="js/datatable.min.js"></script>
+    <div class="offcanvas offcanvas-top " tabindex="-1" id="sidebarMobile">
+        <div class="offcanvas-header bg-dark">
+            <h5 class="text-white">Stage<span class="text-primary">Link</span></h5ssss>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body bg-dark">
+            <?php include 'include/sidebar_admin.php'; ?>
+        </div>
+    </div>
+
     <script src="vendor/js/bootstrap.bundle.min.js"></script>
+    <script src="js/datatable.min.js"></script>
+    <script src="/jquery-ui-1.14.2.custom/external/jquery/jquery.js"></script>
     <script>
         $(document).ready(function() {
             $("#table").DataTable();

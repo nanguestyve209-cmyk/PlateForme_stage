@@ -13,9 +13,10 @@
 
 <body class="container-fluid">
   <section class="row">
-    <aside class="col-sm-2">
-
-
+    <div class="d-md-none p-2">
+      <button class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMobile"><i class="fa-solid fa-bars"></i></button>
+    </div>
+    <aside class="col-sm-2 d-none d-md-block">
       <?php include 'include/sidebar_etudiant.php'; ?>
     </aside>
     <div class="col-sm-10">
@@ -83,12 +84,17 @@
         <button class="btn text-primary border-primary my-3">Voir toutes les offres</button>
       </div>
     </div>
+    <div class="offcanvas offcanvas-start " tabindex="-1" id="sidebarMobile">
+      <div class="offcanvas-header bg-dark">
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+      </div>
+      <div class="offcanvas-body bg-dark">
+        <?php include 'include/sidebar_etudiant.php'; ?>
+      </div>
+    </div>
   </section>
-
-  <script src="./vendor/js/bootstrap.bundle.min.js"></script>
-  <script>
-
-  </script>
+  <script src="vendor/js/bootstrap.bundle.min.js"></script>
+  <script src="/jquery-ui-1.14.2.custom/external/jquery/jquery.js"></script>
 </body>
 
 </html>
