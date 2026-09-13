@@ -108,7 +108,7 @@ if (isset($_POST['inscrire'])) {
 
     entreprise.addEventListener("change", function() {
       if (this.checked) {
-        window.location.href = "inscriptionEntreprise.php";
+        window.location.href = "inscription_entreprise.php";
       }
     });
   </script>

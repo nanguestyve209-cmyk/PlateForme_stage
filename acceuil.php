@@ -119,7 +119,7 @@
           <p class="text-light mt-3">La plate forme dediée aux étudiants et jeunes diplomés <br> pour trouver des opportunitée de stages et construire <br> leur avenir ptofessionnel</p>
           <!-- resaux sociaux -->
           <div class="d-flex gap-2 mt-4">
-            <a href="" class="btn btn-outline-light rounded-circle"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.facebook.com/" target="_blank" class="btn btn-outline-light rounded-circle"><i class="fab fa-facebook-f"></i></a>
             <a href="" class="btn btn-outline-light rounded-circle"><i class="fab fa-linkedin-in"></i></a>
             <a href="" class="btn btn-outline-light rounded-circle"><i class="fab fa-instagram"></i></a>
             <a href="" class="btn btn-outline-light rounded-circle"><i class="fab fa-youtube"></i></a>

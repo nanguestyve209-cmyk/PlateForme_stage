@@ -1,3 +1,16 @@
+<?php
+include 'connect.php';
+if (isset($_POST['publier'])) {
+    $titre_poste = $_POST['titre_poste'];
+    $nom_categorie = $_POST['nom_categorie'];
+    $ville = $_POST['ville'];
+    $duree = $_POST['duree'];
+    $date_debut = $_POST['date_debut'];
+    $certification = $_POST['certification'];
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,9 +43,9 @@
                         <div class="col-6">
                             <label for="nom_categorie" class="form-label">Categorie</label>
                             <select name="nom_categorie"" id=""></select>
+                        </div>
                     </div>
-                </div>
-                <!--  -->
+                  <!--  -->
                     <div class=" row">
                                 <div class="col-6">
                                     <label for="ville" class="form-label">Ville</label>
@@ -50,7 +63,7 @@
                             </div>
                             <div class="col-6">
                                 <label for="certification">Certification</label>
-                                <select name="" id="">
+                                <select name="certification" id="certification">
                                     <option value="oui">oui</option>
                                     <option value="">oui</option>
                                 </select>
@@ -63,7 +76,7 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-center align-item-center">
-                            <button class="btn-primary my-2">Publier l'offre</button>
+                            <button name="publier" class="btn-primary my-2 btn">Publier l'offre</button>
                         </div>
                 </fieldset>
             </form>

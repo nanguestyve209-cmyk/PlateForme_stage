@@ -56,8 +56,8 @@ if (isset($_POST['modifier'])) {
 
             <h1 class="text-center text-primary h4">Étudiant/Jeune diplômé inscrit</h1>
             <div class="table-responsive">
-                <table id="table" class="table table-stripped table-hover ">
-                    <thead>
+                <table id="table" class="table table-stripped table-hover table-bordered">
+                    <thead class="bg-primary bg-primary bg-opacity-25">
                         <tr>
                             <td>#</td>
                             <td>Nom</td>
@@ -95,7 +95,7 @@ if (isset($_POST['modifier'])) {
                                     </a>
                                     <button type="button" class="btn btn-primary btn-modifier"
                                         data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                                        data-id="<?php echo $row['id_etudiant']; ?>"
+                                        data-id_etudiant="<?php echo $row['id_etudiant']; ?>"
                                         data-nom="<?php echo htmlspecialchars($row['nom_complet']); ?>"
                                         data-email="<?php echo htmlspecialchars($row['email']); ?>">
                                         <i class="fa-regular fa-pen-to-square"></i>
@@ -146,7 +146,7 @@ if (isset($_POST['modifier'])) {
             </div>
         </div>
     </main>
-    <div class="offcanvas offcanvas-top " tabindex="-1" id="sidebarMobile">
+    <div class="offcanvas offcanvas-start " tabindex="-1" id="sidebarMobile">
         <div class="offcanvas-header bg-dark">
             <h5 class="text-white">Stage<span class="text-primary">Link</span></h5ssss>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
@@ -169,7 +169,7 @@ if (isset($_POST['modifier'])) {
             button.addEventListener('click', function() {
 
                 document.querySelector('#modal_id_etudiant').value =
-                    this.dataset.id;
+                    this.dataset.id_etudiant;
 
                 document.querySelector('#modal_nom').value =
                     this.dataset.nom;
